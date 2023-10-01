@@ -4,6 +4,7 @@ import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { KEYS_AND_DEFAULT } from '@/localStorage/storageKeys';
 import { validateToken } from '@/api/validateToken';
+import { refreshToken } from '@/api/refreshToken';
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -27,7 +28,8 @@ const _layout = () => {
                     JSON.stringify({ lat: latitude, lon: longitude })
                 );
             }
-            await validateToken();
+            // await validateToken();
+            await refreshToken();
         } catch (err) {
             console.error('Failed to set location:', err);
         }
@@ -40,7 +42,32 @@ const _layout = () => {
     return (
         <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="profile" options={{ headerShown: false }} />
+            <Stack.Screen
+                name="profile"
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: '#D3D3D3',
+                    },
+                    headerTitle: 'My Profile',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        color: 'black',
+                        fontSize: 16,
+                        fontWeight: '500',
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="login"
+                options={{
+                    headerTitle: ' ',
+                    headerStyle: {
+                        backgroundColor: '#B4B4B4',
+                    },
+                    headerShadowVisible: false, // For iOS
+                }}
+            />
         </Stack>
     );
 };
