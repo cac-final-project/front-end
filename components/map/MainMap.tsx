@@ -11,6 +11,7 @@ interface MainMapProps {
 }
 
 const MainMap: React.FC<MainMapProps> = ({ resourcesArr, setSelected }) => {
+    console.log('map');
     // current location
     const [location, setLocation] = useState({
         lat: 30.270409,
@@ -45,24 +46,24 @@ const MainMap: React.FC<MainMapProps> = ({ resourcesArr, setSelected }) => {
         };
     }, [location, resourcesArr]);
 
-    // marker animation
-    const animatedValue = useState(new Animated.Value(0))[0];
+    // // marker animation
+    // const animatedValue = useState(new Animated.Value(0))[0];
 
-    useEffect(() => {
-        Animated.loop(
-            Animated.timing(animatedValue, {
-                toValue: 1,
-                duration: 1000,
-                easing: Easing.linear,
-                useNativeDriver: false,
-            })
-        ).start();
-    }, []);
+    // useEffect(() => {
+    //     Animated.loop(
+    //         Animated.timing(animatedValue, {
+    //             toValue: 1,
+    //             duration: 1000,
+    //             easing: Easing.linear,
+    //             useNativeDriver: false,
+    //         })
+    //     ).start();
+    // }, []);
 
-    const borderColor = animatedValue.interpolate({
-        inputRange: [0, 0.25, 0.5, 0.75, 1],
-        outputRange: ['red', 'yellow', 'green', 'blue', 'red'],
-    });
+    // const borderColor = animatedValue.interpolate({
+    //     inputRange: [0, 0.25, 0.5, 0.75, 1],
+    //     outputRange: ['red', 'yellow', 'green', 'blue', 'red'],
+    // });
 
     return (
         <MapView
@@ -95,7 +96,7 @@ const MainMap: React.FC<MainMapProps> = ({ resourcesArr, setSelected }) => {
                     <Animated.View
                         style={[
                             styles.animatedView,
-                            { borderColor: borderColor },
+                            // { borderColor: borderColor },
                         ]}
                     >
                         {getIcon(resource.amenity)}

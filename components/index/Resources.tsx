@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    FlatList,
+    TouchableOpacity,
+} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { CustomSpinner } from '@/components/index';
 import Amenity from './Amenity';
@@ -59,9 +66,15 @@ const Resources: React.FC<ResourcesProps> = ({ resourcesData }) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
             >
-                <Amenity amenity={'map'} />
+                <Amenity data={resourcesData?.data} amenity={'map'} />
                 {resourcesData?.amenities.map((item, idx) => {
-                    return <Amenity key={idx} amenity={item as Amenity} />;
+                    return (
+                        <Amenity
+                            key={idx}
+                            amenity={item as Amenity}
+                            data={resourcesData?.data}
+                        />
+                    );
                 })}
             </ScrollView>
             <View style={styles.tagsContainer}>
@@ -91,7 +104,9 @@ const Resources: React.FC<ResourcesProps> = ({ resourcesData }) => {
                     style={styles.postContainer}
                     data={filteredResourcesData}
                     keyExtractor={(item, idx) => idx.toString()}
-                    renderItem={({ item }) => <ResourcePost data={item} />}
+                    renderItem={({ item }) => (
+                        <ResourcePost key={item.id} data={item} />
+                    )}
                 />
             )}
         </View>

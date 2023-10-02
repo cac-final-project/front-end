@@ -4,22 +4,40 @@ import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import MainMap from '@/components/map/MainMap';
 import CustomOverlay from '@/components/map/CustomOverlay';
 import { Weather } from '@/components/index/index';
+import LoadingSpinner from '@/components/spinner';
 
 const map = () => {
     // resource items
     const { resources } = useSearchParams();
-    const resourcesArr = useMemo(
-        () => JSON.parse(resources as string) as TResource[],
-        [resources]
-    );
+    const [isLoading, setIsLoading] = useState(true);
+
+    const resourcesArr = useMemo(() => {
+        setIsLoading(true); // set loading true when starting processing
+        const result = JSON.parse(resources as string) as TResource[];
+        setIsLoading(false); // set loading false after processing
+        return result;
+    }, [resources]);
+
     // marker for customOverlay
     const [selected, setSelected] = useState<TResource | null>(resourcesArr[0]);
 
     return (
         <SafeAreaView style={styles.container}>
-            <Weather />
-            <MainMap resourcesArr={resourcesArr} setSelected={setSelected} />
-            <CustomOverlay resource={selected} />
+            {isLoading ? (
+                <LoadingSpinner
+                    visible={isLoading}
+                    spinnerContent="Loading..."
+                />
+            ) : (
+                <>
+                    <Weather />
+                    <MainMap
+                        resourcesArr={resourcesArr}
+                        setSelected={setSelected}
+                    />
+                    <CustomOverlay resource={selected} />
+                </>
+            )}
         </SafeAreaView>
     );
 };
