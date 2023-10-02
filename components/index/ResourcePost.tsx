@@ -6,10 +6,9 @@ import { getIcon } from '@/utils';
 
 interface ResourcePostProps {
     data: TResource;
-    onRender: () => void; // Add this prop
 }
 
-const ResourcePost: React.FC<ResourcePostProps> = ({ data, onRender }) => {
+const ResourcePost: React.FC<ResourcePostProps> = ({ data }) => {
     const router = useRouter();
 
     const handleNavigate = () => {
@@ -28,10 +27,6 @@ const ResourcePost: React.FC<ResourcePostProps> = ({ data, onRender }) => {
     const streetName = useMemo(() => {
         return data.address;
     }, [data.address]);
-
-    useEffect(() => {
-        onRender();
-    }, []);
 
     return (
         <View style={styles.container}>

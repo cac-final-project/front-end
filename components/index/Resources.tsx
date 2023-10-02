@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { CustomSpinner } from '@/components/index';
@@ -11,15 +11,44 @@ interface ResourcesProps {
 }
 
 const Resources: React.FC<ResourcesProps> = ({ resourcesData }) => {
+    const [filteredResourcesData, setFilteredResourcesData] = useState<
+        TResource[]
+    >(resourcesData?.data || []);
     const [selectedTag, setSelectedTag] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [renderedPosts, setRenderedPosts] = useState(0);
+
+    // Using useMemo to filter data only when necessary
+    const displayedData = useMemo(() => {
+        if (selectedTag !== '') {
+            return (
+                resourcesData?.data?.filter((item) =>
+                    item.tags.includes(selectedTag as Amenity)
+                ) || []
+            );
+        }
+        return resourcesData?.data || [];
+    }, [selectedTag, resourcesData]);
+
+    useEffect(() => {
+        setFilteredResourcesData(displayedData);
+    }, [displayedData]);
+
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+        if (isLoading) {
+            timeoutId = setTimeout(() => {
+                setIsLoading(false);
+            }, 100);
+        }
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [isLoading]);
 
     const handleTagClick = (tag: string) => {
         setIsLoading(true);
         setSelectedTag(tag);
     };
-
     return (
         <View style={styles.resourcesContainer}>
             <Text style={styles.resourcesTitle}>
@@ -50,38 +79,21 @@ const Resources: React.FC<ResourcesProps> = ({ resourcesData }) => {
                     })}
                 </ScrollView>
             </View>
-            {/* <View>
-                <CustomSpinner visible={true} spinnerContent={'Loading...'} />
-            </View> */}
-            <FlatList
-                style={styles.postContainer}
-                data={resourcesData?.data}
-                keyExtractor={(item, idx) => idx.toString()}
-                renderItem={({ item }) => (
-                    <ResourcePost
-                        data={item}
-                        onRender={() => setRenderedPosts((prev) => prev + 1)}
+            {isLoading ? (
+                <View>
+                    <CustomSpinner
+                        visible={true}
+                        spinnerContent={'Loading...'}
                     />
-                )}
-            />
-
-            {/* {isLoading || renderedPosts < (resourcesData?.data.length || 0) ? (
-                <Spinner visible={isLoading} spinnerContent={'Loading...'} />
+                </View>
             ) : (
                 <FlatList
                     style={styles.postContainer}
-                    data={resourcesData?.data}
+                    data={filteredResourcesData}
                     keyExtractor={(item, idx) => idx.toString()}
-                    renderItem={({ item }) => (
-                        <ResourcePost
-                            data={item}
-                            onRender={() =>
-                                setRenderedPosts((prev) => prev + 1)
-                            }
-                        />
-                    )}
+                    renderItem={({ item }) => <ResourcePost data={item} />}
                 />
-            )} */}
+            )}
         </View>
     );
 };
@@ -105,7 +117,7 @@ const styles = StyleSheet.create({
         marginVertical: 16,
     },
     postContainer: {
-        height: 600,
+        height: 400,
     },
 });
 
