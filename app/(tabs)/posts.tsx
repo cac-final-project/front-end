@@ -38,7 +38,6 @@ const posts = () => {
 
     const handleFetchPosts = async () => {
         const res = await fetchPosts();
-        console.log(res);
         if (res?.result) {
             const wholePosts: Post[] = res.data;
 
@@ -51,9 +50,11 @@ const posts = () => {
         setIsLoaded(true);
     };
 
+    // need to use reoil for this...
     useEffect(() => {
         handleFetchPosts();
     }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             <Spinner visible={!isLoaded} spinnerContent={'Loading...'} />

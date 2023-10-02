@@ -31,6 +31,7 @@ const Post: React.FC<PostProps> = ({
     isVoted: initialIsVoted,
     profile_img,
 }) => {
+    console.log(postId);
     const styles = React.useMemo(() => getStyles(profile_img), [profile_img]);
 
     const [voteCount, setVoteCount] = useState(initialVoteCount);
@@ -75,7 +76,12 @@ const Post: React.FC<PostProps> = ({
 
     const handleProfileClick = (e: GestureResponderEvent) => {
         e.stopPropagation();
-        router.push('/profile');
+        router.push({
+            pathname: '/profile',
+            params: {
+                author: author,
+            },
+        });
     };
 
     return (

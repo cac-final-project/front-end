@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'expo-router';
-import { getProfile, fetchPosts } from '@/api/index';
+import { useRouter, useSearchParams } from 'expo-router';
+import { getProfile, fetchPosts, getAuthorProfile } from '@/api/index';
 import { SafeAreaView, View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Spinner } from '@/components/index';
 import {
@@ -21,6 +21,7 @@ type TProfile = {
 };
 const Profile = () => {
     const router = useRouter();
+    const params = useSearchParams();
 
     const [profileData, setProfileData] = useState<TProfile>();
     const [isProfileReady, setIsProfileReady] = useState(false);
@@ -39,8 +40,28 @@ const Profile = () => {
         }
     };
 
+    const handleGetAuthorProfileApi = async () => {
+        const profileResponse = await getAuthorProfile({
+            author: params?.author as string,
+        });
+
+        const postsResponse = await fetchPosts({
+            author: params.author! as string,
+        });
+        setPosts(postsResponse?.data);
+        if (profileResponse && profileResponse.result) {
+            setProfileData(profileResponse.data as TProfile);
+            setIsProfileReady(true);
+        }
+    };
+
     useEffect(() => {
-        handleGetProfileApi();
+        console.log(params);
+        if (params?.author) {
+            handleGetAuthorProfileApi();
+        } else {
+            handleGetProfileApi();
+        }
     }, []);
 
     if (!isProfileReady) {
