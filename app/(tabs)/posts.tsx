@@ -4,6 +4,7 @@ import { Spinner } from '@/components/index';
 import { Weather } from '@/components/index/index';
 import Tab from '@/components/posts/Tab';
 import List from '@/components/posts/List';
+import Plus from '@/components/posts/Plus';
 import { fetchPosts } from '@/api/index';
 
 declare global {
@@ -11,6 +12,7 @@ declare global {
         id: number;
         type: PostType;
         author: string;
+        profile_img: string | null;
         title: string;
         content: string;
         voteCount: number;
@@ -69,6 +71,7 @@ const posts = () => {
                     )}
                 </>
             )}
+            <Plus />
         </SafeAreaView>
     );
 };

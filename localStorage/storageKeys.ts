@@ -6,6 +6,7 @@ declare global {
     type TUsername = string | null;
     type TPassword = string | null;
     type TIsLoggedIn = boolean;
+    type TUserType = string | null;
 }
 
 type KeyValuePairNeighborhood = [string, TNeighborhood];
@@ -15,6 +16,7 @@ type KeyValuePairToken = [string, TToken];
 type KeyValuePairUsername = [string, TUsername];
 type KeyValuePairPassword = [string, TPassword];
 type KeyValuePairIsLoggedIn = [string, TIsLoggedIn];
+type KeyValuePairUserType = [string, TUserType];
 
 export const KEYS_AND_DEFAULT = {
     neighborhood: ['@neighborhood', 'Wells Branch'] as KeyValuePairNeighborhood,
@@ -24,4 +26,5 @@ export const KEYS_AND_DEFAULT = {
     username: ['@username', null] as KeyValuePairUsername,
     password: ['@password', null] as KeyValuePairPassword,
     isLoggedIn: ['@isLoggedIn', false] as KeyValuePairIsLoggedIn,
+    userType: ['@userType', null] as KeyValuePairUserType,
 };

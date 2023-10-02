@@ -103,6 +103,17 @@ const _layout = () => {
                     },
                 }}
             />
+            <Stack.Screen
+                name="write"
+                options={{
+                    headerTitle: (props) => <Neighborhood />,
+                    headerRight: (props) => <Profile />,
+                    headerTitleAlign: 'center', // This ensures that the title is centered
+                    headerStyle: {
+                        backgroundColor: '#B4B4B4',
+                    },
+                }}
+            />
         </Stack>
     );
 };
