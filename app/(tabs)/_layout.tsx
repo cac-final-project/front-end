@@ -17,7 +17,6 @@ const _layout = () => {
                     },
 
                     tabBarLabel: ({ focused }) => {
-                        // console.log(color);
                         return (
                             <Text style={dynamicStyle(focused).label}>
                                 Resource
@@ -38,7 +37,6 @@ const _layout = () => {
                 options={{
                     headerTitle: ' ',
                     tabBarLabel: ({ focused }) => {
-                        // console.log(color);
                         return (
                             <Text style={dynamicStyle(focused).label}>
                                 Posts
@@ -59,7 +57,6 @@ const _layout = () => {
                 options={{
                     headerTitle: ' ',
                     tabBarLabel: ({ focused }) => {
-                        // console.log(color);
                         return (
                             <Text style={dynamicStyle(focused).label}>One</Text>
                         );
@@ -78,7 +75,6 @@ const _layout = () => {
                 options={{
                     headerTitle: ' ',
                     tabBarLabel: ({ focused }) => {
-                        // console.log(color);
                         return (
                             <Text style={dynamicStyle(focused).label}>Two</Text>
                         );

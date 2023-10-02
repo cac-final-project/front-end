@@ -12,7 +12,6 @@ const Profile = () => {
             KEYS_AND_DEFAULT.isLoggedIn[0]
         );
         const isLoggedIn = JSON.parse(retrievedValue!);
-        console.log(isLoggedIn);
         if (isLoggedIn) {
             router.push('/profile');
         } else {

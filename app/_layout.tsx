@@ -16,21 +16,34 @@ const _layout = () => {
             if (status !== 'granted') {
                 // await SplashScreen.hideAsync();
                 await AsyncStorage.setItem(
-                    KEYS_AND_DEFAULT.location[0],
-                    JSON.stringify(KEYS_AND_DEFAULT.location[1])
+                    KEYS_AND_DEFAULT.lat[0],
+                    KEYS_AND_DEFAULT.lat[1]
+                );
+                await AsyncStorage.setItem(
+                    KEYS_AND_DEFAULT.lon[0],
+                    KEYS_AND_DEFAULT.lon[1]
                 );
             } else {
                 let location = await Location.getCurrentPositionAsync({});
-                const latitude = location.coords.latitude;
-                const longitude = location.coords.longitude;
-                await AsyncStorage.setItem(
-                    KEYS_AND_DEFAULT.location[0],
-                    JSON.stringify({ lat: latitude, lon: longitude })
-                );
+                const latitude = '30.270409';
+                const longitude = '-97.744708';
+                console.log('hi');
+                // const latitude = location.coords.latitude;
+                // const longitude = location.coords.longitude;
+                await AsyncStorage.setItem(KEYS_AND_DEFAULT.lat[0], latitude);
+                await AsyncStorage.setItem(KEYS_AND_DEFAULT.lon[0], longitude);
             }
             // await validateToken();
             await refreshToken();
         } catch (err) {
+            await AsyncStorage.setItem(
+                KEYS_AND_DEFAULT.lat[0],
+                KEYS_AND_DEFAULT.lat[1]
+            );
+            await AsyncStorage.setItem(
+                KEYS_AND_DEFAULT.lon[0],
+                KEYS_AND_DEFAULT.lon[1]
+            );
             console.error('Failed to set location:', err);
         }
     };
@@ -60,6 +73,16 @@ const _layout = () => {
             />
             <Stack.Screen
                 name="login"
+                options={{
+                    headerTitle: ' ',
+                    headerStyle: {
+                        backgroundColor: '#B4B4B4',
+                    },
+                    headerShadowVisible: false, // For iOS
+                }}
+            />
+            <Stack.Screen
+                name="alert"
                 options={{
                     headerTitle: ' ',
                     headerStyle: {

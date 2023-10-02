@@ -4,19 +4,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { KEYS_AND_DEFAULT } from '@/localStorage/storageKeys';
 
 interface IGetNeighborhood {
-    lat: number;
-    lon: number;
+    lat: string;
+    lon: string;
 }
 
 export const getNeighborhood = async ({
     lat,
     lon,
 }: IGetNeighborhood): Promise<boolean> => {
+    console.log('neighbor', lat, lon);
     try {
         const response = await api.get<ApiResponse>('geo', {
             params: {
-                lat,
-                lon,
+                lat: lat,
+                lon: lon,
             },
         });
         if (response.data.result) {
