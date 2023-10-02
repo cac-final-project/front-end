@@ -20,20 +20,11 @@ const _layout = () => {
             <Tabs.Screen
                 name="posts"
                 options={{
-                    headerTitle: ' ',
-                    tabBarLabel: ({ focused }) => {
-                        return (
-                            <Text style={dynamicStyle(focused).label}>
-                                Posts
-                            </Text>
-                        );
-                    },
-
-                    tabBarIcon: ({ focused }) => {
-                        const Color = focused ? 'black' : 'gray';
-                        return (
-                            <Feather name="square" size={24} color={Color} />
-                        );
+                    headerTitle: (props) => <Neighborhood />,
+                    headerRight: (props) => <Profile />,
+                    headerTitleAlign: 'center', // This ensures that the title is centered
+                    headerStyle: {
+                        backgroundColor: '#B4B4B4',
                     },
                 }}
             />

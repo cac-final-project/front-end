@@ -50,7 +50,7 @@ const ResourcePost: React.FC<ResourcePostProps> = ({ data }) => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.tagRow}>
-                        {data.tags.map((item, idx) => {
+                        {data.tags?.map((item, idx) => {
                             return (
                                 <View key={idx} style={styles.tag}>
                                     <Text style={styles.tagText}>{item}</Text>

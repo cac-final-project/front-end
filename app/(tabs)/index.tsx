@@ -50,7 +50,7 @@ const index = () => {
     return (
         <SafeAreaView style={styles.container}>
             <Spinner visible={!isLoaded} spinnerContent={'Loading...'} />
-            {isLoaded && (
+            {isLoaded && resourcesData && (
                 <>
                     <Weather />
                     <Alert />

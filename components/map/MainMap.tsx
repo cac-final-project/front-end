@@ -82,7 +82,7 @@ const MainMap: React.FC<MainMapProps> = ({ resourcesArr, setSelected }) => {
                 description={'Current Location'}
                 onPress={() => setSelected(null)}
             />
-            {resourcesArr.map((resource: TResource) => (
+            {resourcesArr?.map((resource: TResource) => (
                 <Marker
                     key={resource.id}
                     coordinate={{

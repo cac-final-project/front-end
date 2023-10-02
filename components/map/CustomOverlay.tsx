@@ -29,7 +29,7 @@ const CustomOverlay: React.FC<CustomOverlayProps> = ({ resource }) => {
                         </Text>
                     </View>
                     <View style={styles.tagRow}>
-                        {resource.tags.map((item, idx) => {
+                        {resource?.tags?.map((item, idx) => {
                             return (
                                 <View key={idx} style={styles.tag}>
                                     <Text style={styles.tagText}>{item}</Text>

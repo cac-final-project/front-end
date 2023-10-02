@@ -67,7 +67,7 @@ const Resources: React.FC<ResourcesProps> = ({ resourcesData }) => {
                 showsHorizontalScrollIndicator={false}
             >
                 <Amenity data={resourcesData?.data} amenity={'map'} />
-                {resourcesData?.amenities.map((item, idx) => {
+                {resourcesData?.amenities?.map((item, idx) => {
                     return (
                         <Amenity
                             key={idx}
@@ -80,7 +80,7 @@ const Resources: React.FC<ResourcesProps> = ({ resourcesData }) => {
             <View style={styles.tagsContainer}>
                 <Feather name="filter" size={17} color="black" />
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    {resourcesData?.tags.map((item, idx) => {
+                    {resourcesData?.tags?.map((item, idx) => {
                         return (
                             <Tag
                                 key={idx}

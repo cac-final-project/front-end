@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Post from '../post';
 
-type ActivitiesProps = { posts: PostProps[] };
+type ActivitiesProps = { posts: Post[] };
 
 const Activities: React.FC<ActivitiesProps> = ({ posts }) => {
     return (
         <View>
             <Text style={styles.activitiesTitle}>Activities</Text>
 
-            {posts.map((post, idx) => (
+            {posts?.map((post, idx) => (
                 <Post key={idx} {...post} />
             ))}
         </View>

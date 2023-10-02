@@ -3,21 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { postStyles } from '@/styles/post';
 
-declare global {
-    type PostProps = {
-        id: number;
-        type: 'tip' | 'campaign';
-        author: string;
-        title: string;
-        content: string;
-        voteCount: number;
-        lat: number | null;
-        lon: number | null;
-        createdAt: string;
-    };
-}
-
-const Post: React.FC<PostProps> = ({
+const Post: React.FC<Post> = ({
     id,
     type,
     author,
