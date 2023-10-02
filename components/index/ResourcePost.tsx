@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { getIcon } from '@/utils';
 
@@ -9,6 +10,17 @@ interface ResourcePostProps {
 }
 
 const ResourcePost: React.FC<ResourcePostProps> = ({ data, onRender }) => {
+    const router = useRouter();
+
+    const handleNavigate = () => {
+        router.push({
+            pathname: '/map',
+            params: {
+                resources: JSON.stringify([data]),
+            },
+        });
+    };
+
     const formattedDistance = useMemo(() => {
         return parseFloat(data.distance.toString()).toFixed(2);
     }, [data.distance]);
@@ -33,12 +45,14 @@ const ResourcePost: React.FC<ResourcePostProps> = ({ data, onRender }) => {
                                 {formattedDistance}m
                             </Text>
                         </View>
-                        <AntDesign
-                            name="right"
-                            size={24}
-                            color="black"
-                            style={{ alignSelf: 'flex-start' }}
-                        />
+                        <TouchableOpacity onPress={handleNavigate}>
+                            <AntDesign
+                                name="right"
+                                size={24}
+                                color="black"
+                                style={{ alignSelf: 'flex-start' }}
+                            />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.tagRow}>
                         {data.tags.map((item, idx) => {

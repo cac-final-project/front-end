@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { KEYS_AND_DEFAULT } from '@/localStorage/storageKeys';
 import { validateToken } from '@/api/validateToken';
 import { refreshToken } from '@/api/refreshToken';
+import { Neighborhood, Profile } from '@/components/header/index';
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -89,6 +90,17 @@ const _layout = () => {
                         backgroundColor: '#B4B4B4',
                     },
                     headerShadowVisible: false, // For iOS
+                }}
+            />
+            <Stack.Screen
+                name="map"
+                options={{
+                    headerTitle: (props) => <Neighborhood />,
+                    headerRight: (props) => <Profile />,
+                    headerTitleAlign: 'center', // This ensures that the title is centered
+                    headerStyle: {
+                        backgroundColor: '#B4B4B4',
+                    },
                 }}
             />
         </Stack>

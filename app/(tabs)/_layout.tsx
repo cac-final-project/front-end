@@ -15,21 +15,6 @@ const _layout = () => {
                     headerStyle: {
                         backgroundColor: '#B4B4B4',
                     },
-
-                    tabBarLabel: ({ focused }) => {
-                        return (
-                            <Text style={dynamicStyle(focused).label}>
-                                Resource
-                            </Text>
-                        );
-                    },
-
-                    tabBarIcon: ({ focused }) => {
-                        const Color = focused ? 'black' : 'gray';
-                        return (
-                            <Feather name="square" size={24} color={Color} />
-                        );
-                    },
                 }}
             />
             <Tabs.Screen
