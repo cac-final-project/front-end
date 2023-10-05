@@ -6,7 +6,7 @@ declare global {
     type TUsername = string | null;
     type TPassword = string | null;
     type TIsLoggedIn = boolean;
-    type TUserType = string | null;
+    type TUserType = 'user' | 'volunteer' | null;
 }
 
 type KeyValuePairNeighborhood = [string, TNeighborhood];

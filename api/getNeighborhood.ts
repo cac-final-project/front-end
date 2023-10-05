@@ -12,7 +12,6 @@ export const getNeighborhood = async ({
     lat,
     lon,
 }: IGetNeighborhood): Promise<boolean> => {
-    console.log('neighbor', lat, lon);
     try {
         const response = await api.get<ApiResponse>('geo', {
             params: {

@@ -31,6 +31,10 @@ export const loginApi = async ({
                 KEYS_AND_DEFAULT.isLoggedIn[0],
                 JSON.stringify(true)
             );
+            AsyncStorage.setItem(
+                KEYS_AND_DEFAULT.userType[0],
+                JSON.stringify(response.data.data.type)
+            );
         }
         return response.data;
     } catch (err) {

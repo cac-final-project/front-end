@@ -6,6 +6,7 @@ import { KEYS_AND_DEFAULT } from '@/localStorage/storageKeys';
 import { validateToken } from '@/api/validateToken';
 import { refreshToken } from '@/api/refreshToken';
 import { Neighborhood, Profile } from '@/components/header/index';
+import CancelBtn from '@/components/cancelBtn';
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -28,7 +29,6 @@ const _layout = () => {
                 let location = await Location.getCurrentPositionAsync({});
                 const latitude = '30.270409';
                 const longitude = '-97.744708';
-                console.log('hi');
                 // const latitude = location.coords.latitude;
                 // const longitude = location.coords.longitude;
                 await AsyncStorage.setItem(KEYS_AND_DEFAULT.lat[0], latitude);
@@ -104,14 +104,28 @@ const _layout = () => {
                 }}
             />
             <Stack.Screen
-                name="write"
+                name="tipWrite"
                 options={{
-                    headerTitle: (props) => <Neighborhood />,
-                    headerRight: (props) => <Profile />,
-                    headerTitleAlign: 'center', // This ensures that the title is centered
-                    headerStyle: {
-                        backgroundColor: '#B4B4B4',
-                    },
+                    headerShown: false,
+                    // headerTitle: 'Write Tips',
+                    // headerRight: (props) => <Profile />,
+                    // headerTitleAlign: 'center',
+                    // headerStyle: {
+                    //     backgroundColor: '#B4B4B4',
+                    // },
+                }}
+            />
+            <Stack.Screen
+                name="campaignWrite"
+                options={{
+                    headerShown: false,
+                    // headerTitle: 'Write Campaigns',
+                    // headerRight: (props) => <Profile />,
+                    // headerLeft: (props) => <CancelBtn />,
+                    // headerTitleAlign: 'center', // This ensures that the title is centered
+                    // headerStyle: {
+                    //     backgroundColor: '#B4B4B4',
+                    // },
                 }}
             />
         </Stack>

@@ -1,14 +1,74 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KEYS_AND_DEFAULT } from '@/localStorage/storageKeys';
 
-const Plus: React.FC = () => {
+interface PlusProps {
+    activeTab: PostType;
+}
+
+const Plus: React.FC<PlusProps> = ({ activeTab }) => {
     const router = useRouter();
 
-    const handlePlusClick = () => {
-        router.push('/write');
+    const handlePlusClick = async () => {
+        const isLoggedIn = JSON.parse(
+            (await AsyncStorage.getItem(KEYS_AND_DEFAULT.isLoggedIn[0])) ||
+                'false'
+        );
+
+        if (isLoggedIn) {
+            const userTypeRetrieved = await AsyncStorage.getItem(
+                KEYS_AND_DEFAULT.userType[0]
+            );
+            const userType = JSON.parse(userTypeRetrieved!);
+
+            if (userType === 'user') {
+                if (activeTab === 'tip') {
+                    router.push('/tipWrite');
+                } else {
+                    Alert.alert(
+                        'Only Volunteers can create campaigns!',
+                        'Move to signup page?',
+                        [
+                            {
+                                text: 'Cancel',
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () => router.push('/login'),
+                            },
+                        ]
+                    );
+                }
+            } else {
+                if (activeTab === 'tip') {
+                    router.push('/tipWrite');
+                } else {
+                    console.log('here is to campaignWrite!');
+                    router.push('/campaignWrite');
+                }
+            }
+        } else {
+            Alert.alert(
+                'Login Required',
+                'You are not logged in. Move to login page?',
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'OK',
+                        onPress: () => router.push('/login'),
+                    },
+                ]
+            );
+        }
     };
+
     return (
         <TouchableOpacity onPress={handlePlusClick}>
             <View style={styles.container}>
@@ -55,4 +115,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Plus;
+export default React.memo(Plus);

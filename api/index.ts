@@ -4,6 +4,7 @@ import { findResources } from './findResources';
 import { getNeighborhood } from './getNeighborhood';
 import { updateVote } from './updateVote';
 import { getAuthorProfile } from './findAuthorProfile';
+import { createPost } from './createPost';
 
 export {
     getProfile,
@@ -12,4 +13,5 @@ export {
     getNeighborhood,
     updateVote,
     getAuthorProfile,
+    createPost,
 };

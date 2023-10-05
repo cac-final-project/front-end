@@ -31,7 +31,6 @@ const Post: React.FC<PostProps> = ({
     isVoted: initialIsVoted,
     profile_img,
 }) => {
-    console.log(postId);
     const styles = React.useMemo(() => getStyles(profile_img), [profile_img]);
 
     const [voteCount, setVoteCount] = useState(initialVoteCount);

@@ -11,7 +11,6 @@ interface MainMapProps {
 }
 
 const MainMap: React.FC<MainMapProps> = ({ resourcesArr, setSelected }) => {
-    console.log('map');
     // current location
     const [location, setLocation] = useState({
         lat: 30.270409,
