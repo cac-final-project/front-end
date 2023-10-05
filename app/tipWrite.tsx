@@ -23,7 +23,6 @@ import CategoryHeader from '@/components/tipWrite/categoryDetail/CategoryHeader'
 import TagInput from '@/components/tipWrite/categoryDetail/TagInput';
 import RecommendList from '@/components/tipWrite/categoryDetail/RecommendList';
 import * as ImagePicker from 'expo-image-picker';
-import { exampleTags } from '@/components/tipWrite/exampleTags';
 import { createPost } from '@/api/index';
 
 const tipWrite = (props: any) => {

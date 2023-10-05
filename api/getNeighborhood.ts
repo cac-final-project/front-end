@@ -20,9 +20,11 @@ export const getNeighborhood = async ({
             },
         });
         if (response.data.result) {
+            const data = response.data.data;
+            const address = data?.neighbourhood || data?.city || data?.county;
             await AsyncStorage.setItem(
                 KEYS_AND_DEFAULT.neighborhood[0],
-                response.data.data
+                address
             );
             return true;
         } else {

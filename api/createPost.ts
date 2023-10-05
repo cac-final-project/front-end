@@ -9,6 +9,9 @@ interface createPostProps {
     selectedImages: string[];
     tags: string[];
     postType: 'tip' | 'campaign'; // Added this line
+    lat: number;
+    lon: number;
+    addressName: string;
 }
 
 export const createPost = async ({
@@ -17,6 +20,9 @@ export const createPost = async ({
     title,
     content,
     postType,
+    lat,
+    lon,
+    addressName,
 }: createPostProps) => {
     try {
         const token = await AsyncStorage.getItem(KEYS_AND_DEFAULT.token[0]);
@@ -40,6 +46,11 @@ export const createPost = async ({
         formData.append('title', title);
         formData.append('content', content);
         formData.append('type', postType);
+        if (postType === 'campaign') {
+            formData.append('lon', String(lat));
+            formData.append('lat', String(lon));
+            formData.append('addressName', addressName);
+        }
 
         // Append tags with key name "tags" as comma-separated string
         formData.append('tags', tags.join(', '));

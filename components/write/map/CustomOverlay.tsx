@@ -3,39 +3,17 @@ import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { getIcon } from '@/utils';
 
 interface CustomOverlayProps {
-    resource: TResource | null;
+    addressName: string;
 }
 
-const CustomOverlay: React.FC<CustomOverlayProps> = ({ resource }) => {
-    if (!resource) return null;
-
-    const formattedDistance = useMemo(() => {
-        return parseFloat(resource.distance.toString()).toFixed(2);
-    }, [resource.distance]);
-
+const CustomOverlay: React.FC<CustomOverlayProps> = ({ addressName }) => {
     return (
         <View style={styles.overlay}>
             <View style={styles.contentContainer}>
-                <View style={styles.iconWrapper}>
-                    {getIcon(resource.amenity)}
-                </View>
+                <View style={styles.iconWrapper}></View>
                 <View style={styles.detailContainer}>
                     <View>
-                        <Text style={styles.streetName}>
-                            {resource.address}
-                        </Text>
-                        <Text style={styles.distance}>
-                            {formattedDistance}m
-                        </Text>
-                    </View>
-                    <View style={styles.tagRow}>
-                        {resource?.tags?.map((item, idx) => {
-                            return (
-                                <View key={idx} style={styles.tag}>
-                                    <Text style={styles.tagText}>{item}</Text>
-                                </View>
-                            );
-                        })}
+                        <Text style={styles.streetName}>{addressName}</Text>
                     </View>
                 </View>
             </View>
@@ -61,8 +39,6 @@ const styles = StyleSheet.create({
     contentContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'red',
     },
     iconWrapper: {
         width: 48,

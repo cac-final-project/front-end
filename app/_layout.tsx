@@ -104,6 +104,12 @@ const _layout = () => {
                 }}
             />
             <Stack.Screen
+                name="write"
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
                 name="tipWrite"
                 options={{
                     headerShown: false,

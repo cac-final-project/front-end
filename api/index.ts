@@ -5,6 +5,7 @@ import { getNeighborhood } from './getNeighborhood';
 import { updateVote } from './updateVote';
 import { getAuthorProfile } from './findAuthorProfile';
 import { createPost } from './createPost';
+import { getAddress } from './getAddress';
 
 export {
     getProfile,
@@ -14,4 +15,5 @@ export {
     updateVote,
     getAuthorProfile,
     createPost,
+    getAddress,
 };

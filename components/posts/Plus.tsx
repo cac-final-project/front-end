@@ -26,7 +26,13 @@ const Plus: React.FC<PlusProps> = ({ activeTab }) => {
 
             if (userType === 'user') {
                 if (activeTab === 'tip') {
-                    router.push('/tipWrite');
+                    // router.push('/tipWrite');
+                    router.push({
+                        pathname: '/write',
+                        params: {
+                            writeType: 'tip',
+                        },
+                    });
                 } else {
                     Alert.alert(
                         'Only Volunteers can create campaigns!',
@@ -45,10 +51,20 @@ const Plus: React.FC<PlusProps> = ({ activeTab }) => {
                 }
             } else {
                 if (activeTab === 'tip') {
-                    router.push('/tipWrite');
+                    router.push({
+                        pathname: '/write',
+                        params: {
+                            writeType: 'tip',
+                        },
+                    });
                 } else {
                     console.log('here is to campaignWrite!');
-                    router.push('/campaignWrite');
+                    router.push({
+                        pathname: '/write',
+                        params: {
+                            writeType: 'campaign',
+                        },
+                    });
                 }
             }
         } else {

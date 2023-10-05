@@ -38,7 +38,6 @@ const posts = () => {
 
     const handleFetchPosts = async () => {
         const res = await fetchPosts();
-        console.log('hi');
         if (res?.result) {
             const wholePosts: Post[] = res.data;
 
