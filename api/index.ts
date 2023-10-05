@@ -6,6 +6,7 @@ import { updateVote } from './updateVote';
 import { getAuthorProfile } from './findAuthorProfile';
 import { createPost } from './createPost';
 import { getAddress } from './getAddress';
+import { fetchPost } from './fetchPost';
 
 export {
     getProfile,
@@ -16,4 +17,5 @@ export {
     getAuthorProfile,
     createPost,
     getAddress,
+    fetchPost,
 };

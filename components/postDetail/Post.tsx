@@ -13,40 +13,43 @@ import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { formatDate } from '@/utils/getDate';
 import { updateVote } from '@/api/index';
 
-interface PostProps extends Post {
+interface PostProps {
     postId: number;
+    profile_img: string | null;
+    author: string;
+    popularId: string;
+    content: string;
+    createdAt: string;
+    voteCount: number;
+    isVoted: 'up' | 'down' | null;
 }
 
-declare global {
-    type Vote = 'up' | 'down';
-}
-
-const Post: React.FC<PostProps> = ({
+const PostComponent: React.FC<PostProps> = ({
     postId,
+    profile_img,
     author,
+    popularId,
     content,
     createdAt,
     voteCount: initialVoteCount,
-    id,
     isVoted: initialIsVoted,
-    profile_img,
 }) => {
-    const styles = React.useMemo(() => getStyles(profile_img), [profile_img]);
-
     const [voteCount, setVoteCount] = useState(initialVoteCount);
     const [isVoted, setIsVoted] = useState(initialIsVoted);
 
+    const styles = React.useMemo(() => getStyles(profile_img), [profile_img]);
     const router = useRouter();
 
-    const handlePostClick = () => {
+    const handleProfileClick = (e: GestureResponderEvent) => {
+        e.stopPropagation();
         router.push({
-            pathname: '/postDetail',
+            pathname: '/profile',
             params: {
-                post_id: id,
-                popularId: postId,
+                author: author,
             },
         });
     };
+
     const handleVoteClick = async (
         e: GestureResponderEvent,
         vote: 'up' | 'down'
@@ -69,7 +72,7 @@ const Post: React.FC<PostProps> = ({
         setIsVoted(vote); // set vote state
 
         try {
-            const response = await updateVote({ postId: id, vote });
+            const response = await updateVote({ postId: postId, vote });
             // Optionally: handle response here
         } catch (error) {
             // If API call fails, revert the vote
@@ -79,24 +82,12 @@ const Post: React.FC<PostProps> = ({
         }
     };
 
-    const handleProfileClick = (e: GestureResponderEvent) => {
-        e.stopPropagation();
-        router.push({
-            pathname: '/profile',
-            params: {
-                author: author,
-            },
-        });
-    };
-
     return (
-        <TouchableWithoutFeedback onPress={handlePostClick}>
+        <TouchableWithoutFeedback>
             <View style={styles.postContainer}>
                 <View style={styles.leftBox}>
                     <View style={styles.leftTopHeader}>
-                        <TouchableOpacity
-                            onPress={(e) => handleProfileClick(e)}
-                        >
+                        <TouchableOpacity>
                             {profile_img ? (
                                 <View style={styles.profileBox}>
                                     <Image
@@ -120,7 +111,7 @@ const Post: React.FC<PostProps> = ({
                             >
                                 <Text>@{author}</Text>
                             </TouchableOpacity>
-                            {postId === 0 && (
+                            {popularId === '0' && (
                                 <View style={styles.popularTag}>
                                     <Text style={styles.popularText}>
                                         Popular
@@ -132,7 +123,7 @@ const Post: React.FC<PostProps> = ({
                     <View>
                         <Text style={styles.contentTitle}>{content}</Text>
                     </View>
-                    <View>
+                    <View style={styles.dateContainer}>
                         <Text>{formatDate(createdAt)}</Text>
                     </View>
                 </View>
@@ -159,13 +150,9 @@ const Post: React.FC<PostProps> = ({
 function getStyles(profile_img: string | null) {
     return StyleSheet.create({
         postContainer: {
-            marginTop: 8,
             flexDirection: 'row',
             backgroundColor: 'white',
             borderRadius: 8,
-            padding: 16,
-            borderColor: '#DDDDDD',
-            borderWidth: 1,
             gap: 8,
         },
         leftBox: {
@@ -174,6 +161,9 @@ function getStyles(profile_img: string | null) {
             flexDirection: 'column',
             alignItems: 'flex-start',
             gap: 8,
+        },
+        leftTopHeader: {
+            flexDirection: 'row',
         },
         rightBox: {
             flex: 1,
@@ -197,9 +187,6 @@ function getStyles(profile_img: string | null) {
             backgroundColor: '#D9D9D9',
             borderRadius: 8,
         },
-        leftTopHeader: {
-            flexDirection: 'row',
-        },
         leftTopHeaderRight: {
             flexDirection: 'column',
             justifyContent: 'center',
@@ -222,16 +209,16 @@ function getStyles(profile_img: string | null) {
             fontSize: 15,
             fontWeight: '700',
         },
-        date: {
-            color: '#2B2B2B',
-            fontSize: 10,
-            fontWeight: '400',
-        },
         rightBoxVoteContainer: {
             alignItems: 'center',
             justifyContent: 'center',
         },
+        dateContainer: {
+            marginBottom: 8,
+        },
     });
 }
+
+const Post = React.memo(PostComponent);
 
 export default Post;

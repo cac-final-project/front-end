@@ -20,6 +20,9 @@ declare global {
         lat: number | null;
         lon: number | null;
         createdAt: string;
+        imageUrls?: string[];
+        tagItems?: string[];
+        comments: IComment[];
     };
     type PostType = 'tip' | 'campaign';
 }
